@@ -28,7 +28,7 @@
     "session_wall_ms": 81.088
   },
   "verification": {
-    "integration_tests": 70,
+    "integration_tests": 71,
     "unit_suites": [
       "parser",
       "scheduler"

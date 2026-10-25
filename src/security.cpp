@@ -33,6 +33,9 @@ bool input(std::string& text, bool secret) {
             throw std::runtime_error("cannot hide password");
         changed = true;
     }
+    // Publish the password prompt only after echo is disabled. Fast pasted input
+    // must never reach the terminal while it can still echo secret bytes.
+    if (secret) std::cout << "Password: " << std::flush;
     text.clear();
     bool overflow = false, got = false;
     char c;
@@ -103,37 +106,43 @@ Security::Security(const fs::path& state) {
         throw std::runtime_error(
             "security state already in use or cannot lock it; use one session per state");
     }
-    std::ifstream users(state_ / "users.db");
-    std::string line;
-    while (std::getline(users, line)) {
-        std::istringstream record(line);
-        std::string name, extra;
-        User u;
-        if (!(record >> name >> u.role >> u.salt >> u.hash) || (record >> extra) ||
-            name.find_first_not_of(
-                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_") !=
-                std::string::npos ||
-            (u.role != "admin" && u.role != "standard") || users_.count(name))
-            throw std::runtime_error("invalid user database");
-        if (unhex(u.salt).size() != 16 || unhex(u.hash).size() != 32)
-            throw std::runtime_error("invalid password record");
-        users_[name] = u;
+    try {
+        std::ifstream users(state_ / "users.db");
+        std::string line;
+        while (std::getline(users, line)) {
+            std::istringstream record(line);
+            std::string name, extra;
+            User u;
+            if (!(record >> name >> u.role >> u.salt >> u.hash) || (record >> extra) ||
+                name.find_first_not_of(
+                    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_") !=
+                    std::string::npos ||
+                (u.role != "admin" && u.role != "standard") || users_.count(name))
+                throw std::runtime_error("invalid user database");
+            if (unhex(u.salt).size() != 16 || unhex(u.hash).size() != 32)
+                throw std::runtime_error("invalid password record");
+            users_[name] = u;
+        }
+        if (!users.eof() || users_.empty())
+            throw std::runtime_error("cannot load user database; run scripts/setup_security.py");
+        std::ifstream permissions(state_ / "acl.db");
+        while (std::getline(permissions, line)) {
+            std::istringstream record(line);
+            std::string path, owner, extra;
+            unsigned mode;
+            if (!(record >> std::quoted(path) >> std::quoted(owner) >> std::oct >> mode) ||
+                (record >> extra) || mode > 0777 || !users_.count(owner) || acl_.count(path) ||
+                !within(resolve((root_ / path).string())))
+                throw std::runtime_error("invalid permission database");
+            acl_[path] = {owner, mode};
+        }
+        if (!permissions.eof() || !acl_.count("."))
+            throw std::runtime_error("cannot load permission database");
+    } catch (...) {
+        close(lock_fd_);
+        lock_fd_ = -1;
+        throw;
     }
-    if (!users.eof() || users_.empty())
-        throw std::runtime_error("cannot load user database; run scripts/setup_security.py");
-    std::ifstream permissions(state_ / "acl.db");
-    while (std::getline(permissions, line)) {
-        std::istringstream record(line);
-        std::string path, owner, extra;
-        unsigned mode;
-        if (!(record >> std::quoted(path) >> std::quoted(owner) >> std::oct >> mode) ||
-            (record >> extra) || mode > 0777 || !users_.count(owner) || acl_.count(path) ||
-            !within(resolve((root_ / path).string())))
-            throw std::runtime_error("invalid permission database");
-        acl_[path] = {owner, mode};
-    }
-    if (!permissions.eof() || !acl_.count("."))
-        throw std::runtime_error("cannot load permission database");
 }
 Security::~Security() {
     if (lock_fd_ >= 0) close(lock_fd_);
@@ -145,7 +154,6 @@ bool Security::login() {
         std::string name, password;
         std::cout << "Username: " << std::flush;
         if (!input(name, false)) return false;
-        std::cout << "Password: " << std::flush;
         if (!input(password, true)) return false;
         auto it = users_.find(name);
         // Unknown users still perform the same work, with an existing salt/hash.

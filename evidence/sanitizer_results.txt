@@ -1,3 +1,4 @@
+test_kill_pipeline_job_reaps_all_stages (__main__.D4TerminalTests) ... ok
 test_password_not_echoed (__main__.D4TerminalTests) ... ok
 test_pipeline_stop_resume_interrupt (__main__.D4TerminalTests) ... ok
 test_admin_write_allowed (__main__.D4Tests) ... ok
@@ -26,6 +27,6 @@ test_three_failures_close_session (__main__.D4Tests) ... ok
 test_traversal_absolute_and_symlink_escape (__main__.D4Tests) ... ok
 
 ----------------------------------------------------------------------
-Ran 26 tests in 18.781s
+Ran 27 tests in 21.240s
 
 OK

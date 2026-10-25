@@ -40,7 +40,7 @@ test_stop_background_resume_and_interrupt (__main__.ShellJobControlTests) ... ok
 test_stopped_job_terminal_modes_are_restored_on_fg (__main__.ShellJobControlTests) ... ok
 
 ----------------------------------------------------------------------
-Ran 20 tests in 5.567s
+Ran 20 tests in 5.460s
 
 OK
 test_allocations_are_virtual_and_free_returns_frames (__main__.PagingTests) ... ok
@@ -65,7 +65,7 @@ test_trace_shows_locked_process_transactions (__main__.SynchronizationTests) ...
 test_worker_failure_reaps_peers_and_recovers (__main__.SynchronizationTests) ... ok
 
 ----------------------------------------------------------------------
-Ran 20 tests in 2.836s
+Ran 20 tests in 3.209s
 
 OK
 test_invalid_input_and_atomic_workload_update (__main__.SchedulerIntegrationTests) ... ok
@@ -74,9 +74,10 @@ test_reset_and_reruns (__main__.SchedulerIntegrationTests) ... ok
 test_scheduler_background_rejected (__main__.SchedulerIntegrationTests) ... ok
 
 ----------------------------------------------------------------------
-Ran 4 tests in 6.566s
+Ran 4 tests in 6.799s
 
 OK
+test_kill_pipeline_job_reaps_all_stages (__main__.D4TerminalTests) ... ok
 test_password_not_echoed (__main__.D4TerminalTests) ... ok
 test_pipeline_stop_resume_interrupt (__main__.D4TerminalTests) ... ok
 test_admin_write_allowed (__main__.D4Tests) ... ok
@@ -105,6 +106,6 @@ test_three_failures_close_session (__main__.D4Tests) ... ok
 test_traversal_absolute_and_symlink_escape (__main__.D4Tests) ... ok
 
 ----------------------------------------------------------------------
-Ran 26 tests in 14.898s
+Ran 27 tests in 16.540s
 
 OK

@@ -1,18 +1,26 @@
-Deliverable 4 verification — October 25, 2026
+Deliverable 4 final review — October 25, 2026
 
 Executed on macOS with C++17, warnings treated as errors.
-Clean ZIP extraction: make test passed.
-Unit suites: parser and scheduler passed.
-Integration suites: D1=20, D2=4, D3=20, D4=26; total=70 passed.
-Final D4 AddressSanitizer + UndefinedBehaviorSanitizer run: 26 passed.
+Fresh ZIP extraction: make test passed, including parser and scheduler unit suites.
+Integration suites: D1=20, D2=4, D3=20, D4=27; total=71 passed.
+Final AddressSanitizer + UndefinedBehaviorSanitizer run: 27 D4 tests passed.
 Clang static analysis: security.cpp, pipeline.cpp, parser.cpp, shell.cpp; no findings.
-Report: 18 pages including eight native screenshot figures; every page visually reviewed.
+Report: 18 pages; all pages visually reviewed or verified identical to reviewed pages.
 Report accessibility audit: zero high, medium, or low findings.
-Seven preserved D3 module/interface files: byte-identical, hashes recorded.
-Actual evidence: seven isolated authenticated sessions, no credential records included.
+All eight original native screenshots remain unchanged; embedded-image hashes match.
+Seven preserved module/interface files remain byte-identical to D3.
+ZIP files match the current source, report, evidence, and original screenshots.
+No credential databases, runtime state, binaries, Git metadata, or QA renders included.
 
-All eight original user-captured Terminal screenshots are included unchanged.
-DOCX embedded-image hashes match the source PNG hashes.
-Final report and ZIP are prepared; course upload and any GitHub publication remain user actions.
-Linux code path is present but Linux execution has not been verified.
-No commits, remote creation, or pushes were performed.
+Corrections verified in this review:
+- kill on a tracked pipeline job PID terminates the entire process group.
+- Stopped pipeline jobs resume to handle termination; all stage processes are reaped.
+- Terminal echo is disabled before the password prompt is published.
+- Immediate-response password input tested across ten authenticated terminal sessions.
+- A failed Security construction releases its session lock descriptor.
+- Git publication status, report test counts, and supporting instructions updated.
+
+The initial submission was published as commit 160c0e6.
+The corrections from this review are local until the user commits and pushes them.
+Course-portal upload remains a user action.
+Linux code is present but Linux execution has not been verified.

@@ -38,7 +38,7 @@ jobs
 fg %1
 ```
 
-Each pipeline is one D1 job with a coordinator and concurrently forked stages in the same process group. Exit status is the last stage's status, without `pipefail`. stderr remains on the terminal. Stateful simulation commands, metadata/file mutations, fg, and bg require a standalone foreground command. `cd` or `exit` inside a pipeline affects its child only. Redirection, command lists, expansion, and command history are outside this implementation.
+Each pipeline is one D1 job with a coordinator and concurrently forked stages in the same process group. Killing a tracked job by its displayed PID signals the whole group, including all pipeline stages; stopped jobs are continued so termination can finish. Exit status is the last stage's status, without `pipefail`. stderr remains on the terminal. Stateful simulation commands, metadata/file mutations, fg, and bg require a standalone foreground command. `cd` or `exit` inside a pipeline affects its child only. Redirection, command lists, expansion, and command history are outside this implementation.
 
 Security built-ins:
 
@@ -61,7 +61,7 @@ Standard external commands are deliberately limited to `grep PATTERN [FILE...]`,
 
 ## Simulation boundary
 
-These are application roles running under one host UID. Admin is trusted and retains D1's arbitrary external command execution and host file access. `chmod` does not alter real host mode bits. The host account owner can edit the program/state or race filesystem changes outside the shell. This is an educational authorization simulation, not a sandbox or a production login service. There is no persistent brute-force lockout, password reset, MFA, simulated groups, or protection against a hostile host user. PBKDF2-HMAC-SHA256 uses 600,000 iterations, distinct 16-byte random salts, 32-byte verifiers, and a full-length comparison. Host state directory/database permissions are checked as 700/600.
+These are application roles running under one host UID. Admin is trusted and retains D1's arbitrary external command execution and host file access. `chmod` does not alter real host mode bits. The host account owner can edit the program/state or race filesystem changes outside the shell. This is an educational authorization simulation, not a sandbox or a production login service. There is no persistent brute-force lockout, password reset, MFA, simulated groups, or protection against a hostile host user. PBKDF2-HMAC-SHA256 uses 600,000 iterations, distinct 16-byte random salts, 32-byte verifiers, and a full-length comparison. Provisioning uses host modes 700/600; startup checks host ownership and rejects group/other access.
 
 ## Verification and evidence
 
@@ -71,13 +71,13 @@ python3 scripts/collect_evidence.py
 python3 scripts/package_submission.py
 ```
 
-The suite has parser and scheduler unit tests plus 70 integration tests (20 D1, 4 D2, 20 D3, 26 D4). Tests provision disposable credentials and authenticate normally. Tests cover terminal password hiding, pipeline job control, large transfers, early consumers, status semantics, failed login, permission persistence, traversal/symlink escapes, filter bypass attempts, exclusive sessions, and integration with prior modules.
+The suite has parser and scheduler unit tests plus 71 integration tests (20 D1, 4 D2, 20 D3, 27 D4). Tests provision disposable credentials and authenticate normally. Tests cover terminal password hiding, pipeline job control, large transfers, early consumers, status semantics, failed login, permission persistence, traversal/symlink escapes, filter bypass attempts, exclusive sessions, and integration with prior modules.
 
 Actual execution transcripts and results are in `evidence/`. Evidence session wall times include authentication, process startup, and output capture, and must not be treated as pipeline CPU times. Passwords and hashes are omitted from evidence. `screenshots/CAPTURE_GUIDE.md` gives native screenshot steps. The report builder appends only native images found under the documented filenames; it never generates terminal images.
 
 The APA 7 report is in `report/Advanced_Shell_Deliverable_4_Report.docx`. The report includes all eight original native Terminal screenshots. The report and current ZIP are ready for your final review. `SUBMISSION_CHECKLIST.txt` tracks remaining steps.
 
-To rebuild the Word report, install its optional dependencies in a virtual environment:
+To rebuild the Word report, use Python 3.10 or newer and install its optional dependencies in a virtual environment:
 
 ```sh
 python3 -m venv .venv

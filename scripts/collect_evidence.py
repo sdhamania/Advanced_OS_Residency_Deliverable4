@@ -39,11 +39,11 @@ def collect():
         assert 'wait=2.750 turnaround=5.250 response=2.000' in r.stdout
         assert 'faults=7 replacements=4' in r.stdout and 'faults=5 replacements=2' in r.stdout
         assert 'unique=8000 expected=8000 errors=0' in r.stdout
-        # Record command execution time separately from slow password derivation.
+        # Check a larger stream; recorded session time still includes authentication.
         (state/'workspace/large.txt').write_bytes(b'abcdef\n'*100000)
         r=run('large_pipeline','admin','cat large.txt | cat | wc -c\nexit 0\n')
         assert '700000' in r.stdout
-    results['verification']={'integration_tests':70,'unit_suites':['parser','scheduler'],
+    results['verification']={'integration_tests':71,'unit_suites':['parser','scheduler'],
                              'large_pipeline_bytes':700000,'native_screenshots':'complete' if len(list((ROOT/'screenshots').glob('[0-9][0-9]_*.png')))==8 else 'pending'}
     (output/'results.json').write_text(json.dumps(results,indent=2)+'\n')
     print('Evidence collected from seven authenticated sessions.')

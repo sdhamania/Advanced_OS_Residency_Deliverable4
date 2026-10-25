@@ -170,12 +170,48 @@ class D4TerminalTests(unittest.TestCase):
             s.expect(rb'\$ ')
             s.send(b'echo pipeline-recovered\n');s.expect(rb'\r?\npipeline-recovered\r?\n.*\$ ')
         finally:s.close()
+    def test_kill_pipeline_job_reaps_all_stages(self):
+        import signal
+        import time
+        def members(group):
+            rows=subprocess.check_output(['ps','-axo','pid=,pgid='],text=True).splitlines()
+            return [int(pid) for row in rows if len(row.split())==2
+                    for pid,pgid in [row.split()] if int(pgid)==group]
+        for stopped in [False,True]:
+            session=PtySession()
+            group=None
+            try:
+                session.expect(rb'\$ ')
+                session.send(b'sleep 30 | cat'+(b'\n' if stopped else b' &\n'))
+                if stopped:
+                    time.sleep(.1)
+                    session.send(b'\x1a')
+                    session.expect(rb'\[1\] Stopped.*\$ ')
+                    session.send(b'jobs\n')
+                    transcript=session.expect(rb'\[1\] Stopped  (\d+).*\$ ')
+                    group=int(re.search(rb'\[1\] Stopped  (\d+)',transcript).group(1))
+                else:
+                    transcript=session.expect(rb'\[1\] (\d+)\r?\n.*\$ ')
+                    group=int(re.search(rb'\[1\] (\d+)',transcript).group(1))
+                deadline=time.monotonic()+2
+                while len(members(group))<3 and time.monotonic()<deadline:time.sleep(.01)
+                self.assertEqual(len(members(group)),3,'coordinator plus two stages')
+                session.send(f'kill {group}\n'.encode())
+                session.expect(rb'\[1\] Done',timeout=3)
+                self.assertEqual(members(group),[],'terminated job must leave no stages behind')
+            finally:
+                if group is not None and members(group):
+                    try:os.killpg(group,signal.SIGKILL)
+                    except ProcessLookupError:pass
+                session.close()
+
     def test_password_not_echoed(self):
-        # PtySession performs real login and retains the transcript.
-        s=PtySession()
-        try:
-            s.expect(rb'\$ ')
-            self.assertNotIn(b'AdminTest123!',s.transcript)
-        finally:s.close()
+        # Send credentials immediately on the prompt to exercise echo-disable ordering.
+        for _ in range(10):
+            s=PtySession()
+            try:
+                s.expect(rb'\$ ')
+                self.assertNotIn(b'AdminTest123!',s.transcript)
+            finally:s.close()
 
 if __name__=='__main__':unittest.main(verbosity=2)

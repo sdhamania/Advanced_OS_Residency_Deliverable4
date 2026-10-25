@@ -905,10 +905,17 @@ int Shell::builtinKill(const std::vector<std::string>& arguments) const {
         printError("kill: PID must be a positive integer");
         return 1;
     }
-    if (::kill(static_cast<pid_t>(parsed), SIGTERM) < 0) {
+    const auto job = std::find_if(jobs_.begin(), jobs_.end(), [parsed](const Job& candidate) {
+        return candidate.pid == static_cast<pid_t>(parsed) && candidate.state != JobState::Done;
+    });
+    // A displayed job PID represents its entire process group, including pipeline stages.
+    const pid_t target = job == jobs_.end() ? static_cast<pid_t>(parsed) : -job->process_group;
+    if (::kill(target, SIGTERM) < 0) {
         printError("kill: " + arguments[1] + ": " + std::strerror(errno));
         return 1;
     }
+    // A stopped process must resume to handle its pending termination signal.
+    if (job != jobs_.end() && job->state == JobState::Stopped) ::kill(target, SIGCONT);
     return 0;
 }
 

@@ -31,6 +31,7 @@ int executePipeline(const std::vector<std::vector<std::string>>& stages,
     signal(SIGINT, SIG_IGN);
     signal(SIGQUIT, SIG_IGN);
     signal(SIGHUP, SIG_IGN);
+    signal(SIGTERM, SIG_IGN);
     std::cout.flush();
     std::cerr.flush();
     for (std::size_t i = 0; i < stages.size(); ++i) {
@@ -50,15 +51,12 @@ int executePipeline(const std::vector<std::vector<std::string>>& stages,
             signal(SIGINT, SIG_DFL);
             signal(SIGQUIT, SIG_DFL);
             signal(SIGHUP, SIG_DFL);
+            signal(SIGTERM, SIG_DFL);
             if ((i > 0 && dup2(pipes[i - 1][0], STDIN_FILENO) < 0) ||
                 (i + 1 < stages.size() && dup2(pipes[i][1], STDOUT_FILENO) < 0))
                 _exit(126);
             closePipes();
             const int status = run(stages[i]);
-            // Keep the coordinator alive to reap stages after terminal interrupts/hangup.
-            signal(SIGINT, SIG_IGN);
-            signal(SIGQUIT, SIG_IGN);
-            signal(SIGHUP, SIG_IGN);
             std::cout.flush();
             std::cerr.flush();
             _exit(status);

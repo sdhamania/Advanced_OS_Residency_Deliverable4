@@ -6,7 +6,7 @@ Completed:
 - Authentication and admin/standard roles implemented; no authentication bypass flag.
 - Simulated read/write/execute and directory checks, ownership, persistence.
 - Concurrent chained pipelines, background execution, terminal job control.
-- Parser/scheduler unit suites and 70 integration tests.
+- Parser/scheduler unit suites and 71 integration tests.
 - Actual execution evidence and APA 7 report source.
 
 [x] Eight original native Terminal screenshots captured and included.
@@ -14,7 +14,8 @@ Completed:
 [x] Final ZIP regenerated and contents verified.
 
 Remaining before submission:
-[ ] Create the D4 GitHub repository, then commit/push yourself if required.
+[x] GitHub repository created; initial submission pushed as commit 160c0e6.
+[ ] Commit and push the corrections from this final review.
 [ ] Upload the report and ZIP to the course portal; include GitHub URL if requested.
 
 Never include .osh-security, passwords, users.db, acl.db, build binaries, Git metadata,
