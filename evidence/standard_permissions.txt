@@ -1,0 +1,32 @@
+USER: student
+COMMANDS:
+whoami
+cat ../../system/config.txt
+write ../../system/config.txt forbidden
+rm ../../system/config.txt
+access r ../../shared/task.txt
+access w ../../shared/task.txt
+access x ../../shared/task.txt
+touch personal.txt
+write personal.txt student-notes
+cat personal.txt
+cat ../../shared/events.txt | grep error | sort
+exit 0
+
+STDOUT:
+Username: Password: Authenticated user=student role=standard
+user=student role=standard
+system configuration: protected
+admin-update
+ALLOW user=student access=r path=../../shared/task.txt
+DENY user=student access=w path=../../shared/task.txt
+ALLOW user=student access=x path=../../shared/task.txt
+student-notes
+error alpha
+error zebra
+
+STDERR:
+os-shell: permission denied for student: write
+os-shell: permission denied for student: rm
+
+EXIT_STATUS: 0

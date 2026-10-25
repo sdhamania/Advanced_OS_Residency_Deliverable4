@@ -1,0 +1,22 @@
+USER: admin
+COMMANDS:
+whoami
+perm system/config.txt
+write system/config.txt admin-update
+cat system/config.txt
+chmod 605 shared/task.txt
+perm shared/task.txt
+exit 0
+
+STDOUT:
+Username: Password: Authenticated user=admin role=admin
+user=admin role=admin
+owner=admin mode=644 path="/private/var/folders/ty/9j8rbqnn0pl_92bk5c4qg0ym0000gn/T/osh-evidence-dh0l8aja/state/workspace/system/config.txt"
+system configuration: protected
+admin-update
+chmod updated shared/task.txt
+owner=admin mode=605 path="/private/var/folders/ty/9j8rbqnn0pl_92bk5c4qg0ym0000gn/T/osh-evidence-dh0l8aja/state/workspace/shared/task.txt"
+
+STDERR:
+
+EXIT_STATUS: 0

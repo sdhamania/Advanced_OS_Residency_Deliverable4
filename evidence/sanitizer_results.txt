@@ -1,0 +1,31 @@
+test_password_not_echoed (__main__.D4TerminalTests) ... ok
+test_pipeline_stop_resume_interrupt (__main__.D4TerminalTests) ... ok
+test_admin_write_allowed (__main__.D4Tests) ... ok
+test_concurrent_sessions_do_not_overwrite_permissions (__main__.D4Tests) ... ok
+test_directory_search_permission (__main__.D4Tests) ... ok
+test_distinct_users (__main__.D4Tests) ... ok
+test_early_consumer_and_missing_stages (__main__.D4Tests) ... ok
+test_external_bypass_and_pipeline_authorization (__main__.D4Tests) ... ok
+test_fail_closed_without_database (__main__.D4Tests) ... ok
+test_large_pipeline_does_not_deadlock (__main__.D4Tests) ... ok
+test_last_stage_status (__main__.D4Tests) ... ok
+test_login_required_and_eof (__main__.D4Tests) ... ok
+test_modules_integrated_after_pipeline (__main__.D4Tests) ... ok
+test_multistage_pipeline_and_builtin_source (__main__.D4Tests) ... ok
+test_owner_creation_and_cross_user_denial (__main__.D4Tests) ... ok
+test_passwords_not_stored_in_plaintext (__main__.D4Tests) ... ok
+test_permission_changes_persist_and_execute_checks (__main__.D4Tests) ... ok
+test_pipeline_background_and_fg (__main__.D4Tests) ... ok
+test_pipeline_state_does_not_change_parent (__main__.D4Tests) ... ok
+test_pipeline_syntax_and_literal_pipe (__main__.D4Tests) ... ok
+test_retry_unknown_user_and_success (__main__.D4Tests) ... ok
+test_standard_pipeline_filters (__main__.D4Tests) ... ok
+test_standard_system_read_write_and_remove (__main__.D4Tests) ... ok
+test_stateful_modules_rejected_in_child_context (__main__.D4Tests) ... ok
+test_three_failures_close_session (__main__.D4Tests) ... ok
+test_traversal_absolute_and_symlink_escape (__main__.D4Tests) ... ok
+
+----------------------------------------------------------------------
+Ran 26 tests in 18.781s
+
+OK

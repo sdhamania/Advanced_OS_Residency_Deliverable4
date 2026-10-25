@@ -1,0 +1,6 @@
+ls shared | grep txt
+cat shared/events.txt | grep error | sort
+echo integrated-pipeline | cat | wc
+sleep 2 | cat &
+jobs
+fg %1

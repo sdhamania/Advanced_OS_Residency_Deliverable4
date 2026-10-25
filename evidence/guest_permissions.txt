@@ -1,0 +1,14 @@
+USER: guest
+COMMANDS:
+whoami
+cat ../student/personal.txt
+exit 0
+
+STDOUT:
+Username: Password: Authenticated user=guest role=standard
+user=guest role=standard
+
+STDERR:
+os-shell: permission denied for guest: cat
+
+EXIT_STATUS: 0

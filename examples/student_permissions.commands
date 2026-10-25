@@ -1,0 +1,12 @@
+whoami
+cat ../../system/config.txt
+write ../../system/config.txt forbidden-change
+rm ../../system/config.txt
+access r ../../shared/task.txt
+access w ../../shared/task.txt
+access x ../../shared/task.txt
+touch personal.txt
+write personal.txt student-owned-data
+perm personal.txt
+cat personal.txt
+cat ../../shared/events.txt | grep error | sort

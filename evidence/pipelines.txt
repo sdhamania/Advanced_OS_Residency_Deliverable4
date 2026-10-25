@@ -1,0 +1,19 @@
+USER: admin
+COMMANDS:
+ls shared | grep txt
+cat shared/events.txt | grep error | sort
+echo pipeline-data | cat | wc
+exit 0
+
+STDOUT:
+Username: Password: Authenticated user=admin role=admin
+events.txt
+readme.txt
+task.txt
+error alpha
+error zebra
+       1       1      14
+
+STDERR:
+
+EXIT_STATUS: 0

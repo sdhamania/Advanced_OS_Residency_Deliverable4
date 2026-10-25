@@ -1,0 +1,50 @@
+{
+  "01_admin_login.png": {
+    "capture_date": "2026-10-25",
+    "capture_time": "10.48.39 AM",
+    "sha256": "1f3527379d8e1b27c5cd8438f2e13694822fcc8fb1f666dd2467cc435fef9b50",
+    "source": "Original user-captured macOS Terminal PNG; unchanged"
+  },
+  "02_pipelines.png": {
+    "capture_date": "2026-10-25",
+    "capture_time": "10.51.13 AM",
+    "sha256": "d7dbf725cb8c8b118471f3b85e375bce9193b0ed4ccf4ed98f95efbc009e430e",
+    "source": "Original user-captured macOS Terminal PNG; unchanged"
+  },
+  "03_permissions_admin.png": {
+    "capture_date": "2026-10-25",
+    "capture_time": "10.57.53 AM",
+    "sha256": "39c6ddf02bdb7766dd560348032f83dbb28813daa7417e2a2eadcaeb4ed92745",
+    "source": "Original user-captured macOS Terminal PNG; unchanged"
+  },
+  "04_student_permissions.png": {
+    "capture_date": "2026-10-25",
+    "capture_time": "11.00.42 AM",
+    "sha256": "c65819972b170fe2b4ad231029ceab1db2fe50931ae9158eb9075daf00c53ba6",
+    "source": "Original user-captured macOS Terminal PNG; unchanged"
+  },
+  "05_user_ownership.png": {
+    "capture_date": "2026-10-25",
+    "capture_time": "11.01.57 AM",
+    "sha256": "be91117c315bccf048afa3b572aa37628ff5a26534abfde09fa5a1c017782bd1",
+    "source": "Original user-captured macOS Terminal PNG; unchanged"
+  },
+  "06_guest_denial.png": {
+    "capture_date": "2026-10-25",
+    "capture_time": "11.02.48 AM",
+    "sha256": "58f3d8ed0f76debac5731f7d9a936e6da8ad59bf310752a23568c50f5638e7a9",
+    "source": "Original user-captured macOS Terminal PNG; unchanged"
+  },
+  "07_execute_allowed.png": {
+    "capture_date": "2026-10-25",
+    "capture_time": "11.04.16 AM",
+    "sha256": "25b5d2776a208a7f6cd6cb7ccaee08e0c526529ab0531d8e9fbbcc87890edf94",
+    "source": "Original user-captured macOS Terminal PNG; unchanged"
+  },
+  "08_failed_login.png": {
+    "capture_date": "2026-10-25",
+    "capture_time": "11.11.00 AM",
+    "sha256": "59fba9c2ab34951820574cfcfa6d41bc29acf5dd49352d6ff8059552fc64f405",
+    "source": "Original user-captured macOS Terminal PNG; unchanged"
+  }
+}

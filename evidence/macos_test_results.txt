@@ -1,0 +1,110 @@
+mkdir -p build
+c++ -Iinclude -std=c++17 -Wall -Wextra -Wpedantic -Werror -O2 -MMD -MP -c src/main.cpp -o build/main.o
+c++ -Iinclude -std=c++17 -Wall -Wextra -Wpedantic -Werror -O2 -MMD -MP -c src/parser.cpp -o build/parser.o
+c++ -Iinclude -std=c++17 -Wall -Wextra -Wpedantic -Werror -O2 -MMD -MP -c src/shell.cpp -o build/shell.o
+c++ -Iinclude -std=c++17 -Wall -Wextra -Wpedantic -Werror -O2 -MMD -MP -c src/memory.cpp -o build/memory.o
+c++ -Iinclude -std=c++17 -Wall -Wextra -Wpedantic -Werror -O2 -MMD -MP -c src/synchronization.cpp -o build/synchronization.o
+c++ -Iinclude -std=c++17 -Wall -Wextra -Wpedantic -Werror -O2 -MMD -MP -c src/scheduler.cpp -o build/scheduler.o
+c++ -Iinclude -std=c++17 -Wall -Wextra -Wpedantic -Werror -O2 -MMD -MP -c src/security.cpp -o build/security.o
+c++ -Iinclude -std=c++17 -Wall -Wextra -Wpedantic -Werror -O2 -MMD -MP -c src/pipeline.cpp -o build/pipeline.o
+c++ -std=c++17 -Wall -Wextra -Wpedantic -Werror -O2 build/main.o build/parser.o build/shell.o build/memory.o build/synchronization.o build/scheduler.o build/security.o build/pipeline.o -o build/os-shell -pthread
+c++ -Iinclude -std=c++17 -Wall -Wextra -Wpedantic -Werror -O2 tests/test_parser.cpp src/parser.cpp -o build/parser-tests
+c++ -Iinclude -std=c++17 -Wall -Wextra -Wpedantic -Werror -O2 tests/test_scheduler.cpp src/scheduler.cpp -o build/scheduler-tests -pthread
+./build/parser-tests
+All parser tests passed
+./build/scheduler-tests
+Scheduler unit tests passed (known schedules, arrivals, FCFS, timer, invalid inputs)
+python3 tests/integration_test.py
+python3 tests/test_memory_sync.py
+python3 tests/scheduler_integration_test.py
+python3 tests/test_d4.py
+test_background_builtins_use_child_state (__main__.ShellBatchTests) ... ok
+test_background_job_and_fg (__main__.ShellBatchTests) ... ok
+test_batch_background_reader_does_not_steal_commands (__main__.ShellBatchTests) ... ok
+test_builtins_and_external_command (__main__.ShellBatchTests) ... ok
+test_clear_and_kill_builtins (__main__.ShellBatchTests) ... ok
+test_double_quoted_paths_keep_literal_backslashes (__main__.ShellBatchTests) ... ok
+test_empty_cat_and_directory_cat_preserve_output (__main__.ShellBatchTests) ... ok
+test_error_statuses_are_returned_at_eof_and_exit (__main__.ShellBatchTests) ... ok
+test_errors_and_exit_status (__main__.ShellBatchTests) ... ok
+test_immediate_exit_after_background_launch (__main__.ShellBatchTests) ... ok
+test_invalid_job_and_pid_values (__main__.ShellBatchTests) ... ok
+test_symbolic_links_obey_rm_and_rmdir_semantics (__main__.ShellBatchTests) ... ok
+test_touch_preserves_data_and_updates_timestamp (__main__.ShellBatchTests) ... ok
+test_background_terminal_reader_stops_then_fg_resumes (__main__.ShellJobControlTests) ... ok
+test_exit_sends_hangup_to_running_job (__main__.ShellJobControlTests) ... ok
+test_idle_background_child_is_reaped_without_more_input (__main__.ShellJobControlTests) ... ok
+test_interactive_reader_receives_terminal_before_launch (__main__.ShellJobControlTests) ... ok
+test_shell_started_in_background_waits_for_terminal (__main__.ShellJobControlTests) ... ok
+test_stop_background_resume_and_interrupt (__main__.ShellJobControlTests) ... ok
+test_stopped_job_terminal_modes_are_restored_on_fg (__main__.ShellJobControlTests) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 5.567s
+
+OK
+test_allocations_are_virtual_and_free_returns_frames (__main__.PagingTests) ... ok
+test_background_simulations_rejected (__main__.PagingTests) ... ok
+test_canonical_fifo_lru (__main__.PagingTests) ... ok
+test_cross_process_eviction_updates_residency (__main__.PagingTests) ... ok
+test_equal_page_numbers_are_process_scoped (__main__.PagingTests) ... ok
+test_fifo_does_not_refresh_on_hit (__main__.PagingTests) ... ok
+test_invalid_input_does_not_change_state (__main__.PagingTests) ... ok
+test_lru_refreshes_on_hit (__main__.PagingTests) ... ok
+test_randomized_reference_model_and_belady (__main__.PagingTests) ... ok
+test_release_reuse_is_a_fault (__main__.PagingTests) ... ok
+test_reset_clears_accounting (__main__.PagingTests) ... ok
+test_capacity_larger_than_workload (__main__.SynchronizationTests) ... ok
+test_invalid_sync_arguments (__main__.SynchronizationTests) ... ok
+test_more_consumers_than_items (__main__.SynchronizationTests) ... ok
+test_repeated_runs_cleanup (__main__.SynchronizationTests) ... ok
+test_single_slot_many_workers (__main__.SynchronizationTests) ... ok
+test_small_delayed_run (__main__.SynchronizationTests) ... ok
+test_stress_exactly_once (__main__.SynchronizationTests) ... ok
+test_trace_shows_locked_process_transactions (__main__.SynchronizationTests) ... ok
+test_worker_failure_reaps_peers_and_recovers (__main__.SynchronizationTests) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 2.836s
+
+OK
+test_invalid_input_and_atomic_workload_update (__main__.SchedulerIntegrationTests) ... ok
+test_random_workloads_against_independent_oracle (__main__.SchedulerIntegrationTests) ... ok
+test_reset_and_reruns (__main__.SchedulerIntegrationTests) ... ok
+test_scheduler_background_rejected (__main__.SchedulerIntegrationTests) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 6.566s
+
+OK
+test_password_not_echoed (__main__.D4TerminalTests) ... ok
+test_pipeline_stop_resume_interrupt (__main__.D4TerminalTests) ... ok
+test_admin_write_allowed (__main__.D4Tests) ... ok
+test_concurrent_sessions_do_not_overwrite_permissions (__main__.D4Tests) ... ok
+test_directory_search_permission (__main__.D4Tests) ... ok
+test_distinct_users (__main__.D4Tests) ... ok
+test_early_consumer_and_missing_stages (__main__.D4Tests) ... ok
+test_external_bypass_and_pipeline_authorization (__main__.D4Tests) ... ok
+test_fail_closed_without_database (__main__.D4Tests) ... ok
+test_large_pipeline_does_not_deadlock (__main__.D4Tests) ... ok
+test_last_stage_status (__main__.D4Tests) ... ok
+test_login_required_and_eof (__main__.D4Tests) ... ok
+test_modules_integrated_after_pipeline (__main__.D4Tests) ... ok
+test_multistage_pipeline_and_builtin_source (__main__.D4Tests) ... ok
+test_owner_creation_and_cross_user_denial (__main__.D4Tests) ... ok
+test_passwords_not_stored_in_plaintext (__main__.D4Tests) ... ok
+test_permission_changes_persist_and_execute_checks (__main__.D4Tests) ... ok
+test_pipeline_background_and_fg (__main__.D4Tests) ... ok
+test_pipeline_state_does_not_change_parent (__main__.D4Tests) ... ok
+test_pipeline_syntax_and_literal_pipe (__main__.D4Tests) ... ok
+test_retry_unknown_user_and_success (__main__.D4Tests) ... ok
+test_standard_pipeline_filters (__main__.D4Tests) ... ok
+test_standard_system_read_write_and_remove (__main__.D4Tests) ... ok
+test_stateful_modules_rejected_in_child_context (__main__.D4Tests) ... ok
+test_three_failures_close_session (__main__.D4Tests) ... ok
+test_traversal_absolute_and_symlink_escape (__main__.D4Tests) ... ok
+
+----------------------------------------------------------------------
+Ran 26 tests in 14.898s
+
+OK

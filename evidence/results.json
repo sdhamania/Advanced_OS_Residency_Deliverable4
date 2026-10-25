@@ -1,0 +1,39 @@
+{
+  "pipelines": {
+    "exit_status": 0,
+    "session_wall_ms": 253.779
+  },
+  "admin_permissions": {
+    "exit_status": 0,
+    "session_wall_ms": 80.706
+  },
+  "standard_permissions": {
+    "exit_status": 0,
+    "session_wall_ms": 81.63
+  },
+  "guest_permissions": {
+    "exit_status": 0,
+    "session_wall_ms": 79.287
+  },
+  "failed_login": {
+    "exit_status": 1,
+    "session_wall_ms": 235.572
+  },
+  "integration": {
+    "exit_status": 0,
+    "session_wall_ms": 142.366
+  },
+  "large_pipeline": {
+    "exit_status": 0,
+    "session_wall_ms": 81.088
+  },
+  "verification": {
+    "integration_tests": 70,
+    "unit_suites": [
+      "parser",
+      "scheduler"
+    ],
+    "large_pipeline_bytes": 700000,
+    "native_screenshots": "complete"
+  }
+}

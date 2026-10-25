@@ -1,0 +1,18 @@
+Deliverable 4 verification — October 25, 2026
+
+Executed on macOS with C++17, warnings treated as errors.
+Clean ZIP extraction: make test passed.
+Unit suites: parser and scheduler passed.
+Integration suites: D1=20, D2=4, D3=20, D4=26; total=70 passed.
+Final D4 AddressSanitizer + UndefinedBehaviorSanitizer run: 26 passed.
+Clang static analysis: security.cpp, pipeline.cpp, parser.cpp, shell.cpp; no findings.
+Report: 18 pages including eight native screenshot figures; every page visually reviewed.
+Report accessibility audit: zero high, medium, or low findings.
+Seven preserved D3 module/interface files: byte-identical, hashes recorded.
+Actual evidence: seven isolated authenticated sessions, no credential records included.
+
+All eight original user-captured Terminal screenshots are included unchanged.
+DOCX embedded-image hashes match the source PNG hashes.
+Final report and ZIP are prepared; course upload and any GitHub publication remain user actions.
+Linux code path is present but Linux execution has not been verified.
+No commits, remote creation, or pushes were performed.

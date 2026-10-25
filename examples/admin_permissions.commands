@@ -1,0 +1,5 @@
+whoami
+perm system/config.txt
+write system/config.txt admin-approved-change
+chmod 604 shared/task.txt
+perm shared/task.txt

@@ -1,0 +1,12 @@
+USER: admin
+COMMANDS:
+echo should-not-run
+
+STDOUT:
+Username: Password: Username: Password: Username: Password: 
+STDERR:
+Authentication failed
+Authentication failed
+Authentication failed
+
+EXIT_STATUS: 1

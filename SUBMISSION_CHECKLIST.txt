@@ -1,0 +1,21 @@
+DELIVERABLE 4 SUBMISSION
+
+Completed:
+- D3 extended through parser, pipeline, and security interfaces.
+- Existing scheduler, memory, synchronization, and job data model preserved.
+- Authentication and admin/standard roles implemented; no authentication bypass flag.
+- Simulated read/write/execute and directory checks, ownership, persistence.
+- Concurrent chained pipelines, background execution, terminal job control.
+- Parser/scheduler unit suites and 70 integration tests.
+- Actual execution evidence and APA 7 report source.
+
+[x] Eight original native Terminal screenshots captured and included.
+[x] Report rebuilt and visually reviewed with native figures.
+[x] Final ZIP regenerated and contents verified.
+
+Remaining before submission:
+[ ] Create the D4 GitHub repository, then commit/push yourself if required.
+[ ] Upload the report and ZIP to the course portal; include GitHub URL if requested.
+
+Never include .osh-security, passwords, users.db, acl.db, build binaries, Git metadata,
+or internal report/rendered-* QA files in the submission.

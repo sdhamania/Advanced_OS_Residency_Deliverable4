@@ -1,0 +1,12 @@
+USER: admin
+COMMANDS:
+cat large.txt | cat | wc -c
+exit 0
+
+STDOUT:
+Username: Password: Authenticated user=admin role=admin
+  700000
+
+STDERR:
+
+EXIT_STATUS: 0
